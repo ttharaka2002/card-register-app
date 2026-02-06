@@ -1,0 +1,25 @@
+.appShell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  background: #f4f6f8;
+  font-family: "Segoe UI", "Roboto", sans-serif;
+}
+
+.windowFrame {
+  width: min(420px, 100%);
+  border-radius: 16px;
+  border: 2px solid #d8dde4;
+  background: #ffffff;
+  padding: 32px;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+}
+
+.placeholderText {
+  margin: 0;
+  text-align: center;
+  color: #3f4a5a;
+  font-size: 1rem;
+}
