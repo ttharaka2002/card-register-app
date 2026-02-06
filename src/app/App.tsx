@@ -12,9 +12,8 @@ const user: User = {
 };
 
 export const App = () => {
-
-    //Screen state is managed here for simplicity, as we only have two screens and no complex navigation logic.
-    //TODO: If the app grows, configuration-driven or reducer-based approach for scalable products.
+  // Screen state is managed here for simplicity, as we only have two screens and no complex navigation logic.
+  // TODO: If the app grows, configuration-driven or reducer-based approach for scalable products.
   const [screen, setScreen] = useState<Screen>("register");
 
   const handleOpenMenu = () => setScreen("menu");

@@ -23,11 +23,20 @@
   border-radius: 10px;
   border: 1px solid #d1d5db;
   font-size: 0.95rem;
+  width: 100%;
 }
 
 .input:focus {
   outline: 2px solid #2563eb;
   border-color: transparent;
+}
+
+.inputWide {
+  width: 90%;
+}
+
+.inputNarrow {
+  width: 140px;
 }
 
 .inlineRow {

@@ -4,9 +4,10 @@ import "@testing-library/jest-dom";
 import { App } from "./app";
 
 describe("App", () => {
-  it("renders the app shell placeholder", () => {
+  it("renders the register card screen by default", () => {
     render(<App />);
 
-    expect(screen.getByText("App shell ready.")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Register card form" })).toBeInTheDocument();
+    expect(screen.getByText(/Welcome\s+Alex/)).toBeInTheDocument();
   });
 });
