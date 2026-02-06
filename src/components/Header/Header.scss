@@ -1,0 +1,33 @@
+.header {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #ffffff;
+}
+
+.leftSlot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.rightSlot {
+  width: 40px;
+  height: 40px;
+}
+
+.leftSpacer {
+  width: 40px;
+  height: 40px;
+}
+
+.title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  text-align: center;
+}
