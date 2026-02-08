@@ -7,19 +7,25 @@ type RegisterCardScreenProps = {
   onSubmit: () => void;
 };
 
-type FormState = {
-  cardNumber: string;
-  pin: string;
-  expiry: string; 
-};
+const fieldNames = {
+  cardNumber: "cardNumber",
+  pin: "pin",
+  expiry: "expiry",
+} as const;
+
+type FieldName = keyof typeof fieldNames;
+
+type FormState = Record<FieldName, string>;
 
 type FormErrors = Partial<Record<keyof FormState, string>>;
 
 const initialState: FormState = {
-  cardNumber: "",
-  pin: "",
-  expiry: "",
+  [fieldNames.cardNumber]: "",
+  [fieldNames.pin]: "",
+  [fieldNames.expiry]: "",
 };
+
+const errorId = (field: FieldName) => `${field}-error`;
 
 const validateForm = (values: FormState): FormErrors => {
   const errors: FormErrors = {};
@@ -51,7 +57,7 @@ export const RegisterCardScreen = ({ user, onSubmit }: RegisterCardScreenProps) 
 
   const hasErrors = useMemo(() => Object.keys(errors).length > 0, [errors]);
 
-  const handleChange = (field: keyof FormState) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (field: FieldName) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues((prev) => ({ ...prev, [field]: event.target.value }));
   };
 
@@ -66,7 +72,7 @@ export const RegisterCardScreen = ({ user, onSubmit }: RegisterCardScreenProps) 
     }
   };
 
-  const showError = (field: keyof FormState) => submitted && Boolean(errors[field]);
+  const showError = (field: FieldName) => submitted && Boolean(errors[field]);
 
   return (
     <form
@@ -80,15 +86,18 @@ export const RegisterCardScreen = ({ user, onSubmit }: RegisterCardScreenProps) 
         <input
           className={`${styles.input} ${styles.inputWide} ${showError("cardNumber") ? styles.inputError : ""}`}
           type="text"
-          name="cardNumber"
-          value={values.cardNumber}
-          onChange={handleChange("cardNumber")}
-          aria-invalid={showError("cardNumber")}
-          aria-describedby="cardNumber-error"
+          name={fieldNames.cardNumber}
+          inputMode="numeric"
+          autoComplete="cc-number"
+          maxLength={19}
+          value={values[fieldNames.cardNumber]}
+          onChange={handleChange(fieldNames.cardNumber)}
+          aria-invalid={showError(fieldNames.cardNumber)}
+          aria-describedby={errorId(fieldNames.cardNumber)}
         />
-        {showError("cardNumber") && (
-          <span id="cardNumber-error" className={styles.errorText} role="alert">
-            {errors.cardNumber}
+        {showError(fieldNames.cardNumber) && (
+          <span id={errorId(fieldNames.cardNumber)} className={styles.errorText} role="alert">
+            {errors[fieldNames.cardNumber]}
           </span>
         )}
       </label>
@@ -98,15 +107,18 @@ export const RegisterCardScreen = ({ user, onSubmit }: RegisterCardScreenProps) 
           <input
             className={`${styles.input} ${styles.inputNarrow} ${showError("pin") ? styles.inputError : ""}`}
             type="text"
-            name="pin"
-            value={values.pin}
-            onChange={handleChange("pin")}
-            aria-invalid={showError("pin")}
-            aria-describedby="pin-error"
+            name={fieldNames.pin}
+            inputMode="numeric"
+            autoComplete="cc-csc"
+            maxLength={4}
+            value={values[fieldNames.pin]}
+            onChange={handleChange(fieldNames.pin)}
+            aria-invalid={showError(fieldNames.pin)}
+            aria-describedby={errorId(fieldNames.pin)}
           />
-          {showError("pin") && (
-            <span id="pin-error" className={styles.errorText} role="alert">
-              {errors.pin}
+          {showError(fieldNames.pin) && (
+            <span id={errorId(fieldNames.pin)} className={styles.errorText} role="alert">
+              {errors[fieldNames.pin]}
             </span>
           )}
         </label>
@@ -115,15 +127,18 @@ export const RegisterCardScreen = ({ user, onSubmit }: RegisterCardScreenProps) 
           <input
             className={`${styles.input} ${styles.inputNarrow} ${showError("expiry") ? styles.inputError : ""}`}
             type="text"
-            name="expiry"
-            value={values.expiry}
-            onChange={handleChange("expiry")}
-            aria-invalid={showError("expiry")}
-            aria-describedby="expiry-error"
+            name={fieldNames.expiry}
+            inputMode="numeric"
+            autoComplete="cc-exp"
+            maxLength={5}
+            value={values[fieldNames.expiry]}
+            onChange={handleChange(fieldNames.expiry)}
+            aria-invalid={showError(fieldNames.expiry)}
+            aria-describedby={errorId(fieldNames.expiry)}
           />
-          {showError("expiry") && (
-            <span id="expiry-error" className={styles.errorText} role="alert">
-              {errors.expiry}
+          {showError(fieldNames.expiry) && (
+            <span id={errorId(fieldNames.expiry)} className={styles.errorText} role="alert">
+              {errors[fieldNames.expiry]}
             </span>
           )}
         </label>
