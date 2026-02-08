@@ -31,12 +31,28 @@
   border-color: transparent;
 }
 
+.inputError {
+  border-color: #dc2626;
+  background: #fef2f2;
+}
+
 .inputWide {
   width: 90%;
 }
 
 .inputNarrow {
   width: 140px;
+}
+
+.errorText {
+  color: #dc2626;
+  font-size: 0.8rem;
+}
+
+.formError {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.9rem;
 }
 
 .inlineRow {
