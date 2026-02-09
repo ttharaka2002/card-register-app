@@ -1,5 +1,13 @@
 import React, { useMemo, useState } from "react";
 import { User } from "../../types/user";
+import {
+  FieldName,
+  FormErrors,
+  FormState,
+  fieldNames,
+  initialState,
+} from "../../domain/cardRegistration/types";
+import { validateForm } from "../../domain/cardRegistration/validation";
 import * as styles from "./RegisterCardScreen.scss";
 
 type RegisterCardScreenProps = {
@@ -7,43 +15,7 @@ type RegisterCardScreenProps = {
   onSubmit: () => void;
 };
 
-const fieldNames = {
-  cardNumber: "cardNumber",
-  pin: "pin",
-  expiry: "expiry",
-} as const;
-
-type FieldName = keyof typeof fieldNames;
-
-type FormState = Record<FieldName, string>;
-
-type FormErrors = Partial<Record<keyof FormState, string>>;
-
-const initialState: FormState = {
-  [fieldNames.cardNumber]: "",
-  [fieldNames.pin]: "",
-  [fieldNames.expiry]: "",
-};
-
 const errorId = (field: FieldName) => `${field}-error`;
-
-const validateForm = (values: FormState): FormErrors => {
-  const errors: FormErrors = {};
-
-  if (!values.cardNumber.trim()) {
-    errors.cardNumber = "Card number is required.";
-  }
-
-  if (!values.pin.trim()) {
-    errors.pin = "PIN is required.";
-  }
-
-  if (!values.expiry.trim()) {
-    errors.expiry = "Expiry is required.";
-  }
-
-  return errors;
-};
 
 export const RegisterCardScreen = ({ user, onSubmit }: RegisterCardScreenProps) => {
 
@@ -51,6 +23,7 @@ export const RegisterCardScreen = ({ user, onSubmit }: RegisterCardScreenProps) 
   //Validation & UX next levels:
   // - Add validation rules (e.g. card number format, PIN length) ,Masking/formatting: card number grouping, expiry auto‑slash,
   // Show success message on successful submission, Field-level validation on blur ,etc.
+  //Refactored RegisterCardScreen to use the domain layer.
   const [values, setValues] = useState<FormState>(initialState);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
